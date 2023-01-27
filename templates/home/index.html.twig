@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    {% for article in latestArticles %}
+        <div class="articles">
+            <h1>{{ article.title }}</h1>
+            <p> par {{ article.author.username }}</p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,1 @@
+Ce site est un exercice.
