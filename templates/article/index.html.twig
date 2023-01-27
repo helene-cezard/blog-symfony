@@ -2,9 +2,17 @@
 
 {% block body %}
 
-<div class="article">
-    <h1>{{ article.title }}</h1>
-    <p>écrit par {{ article.author.username }}</p>
-    <p>{{ article.content }}</p>
-</div>
+    <div class="article">
+        <h1>{{ article.title }}</h1>
+        <p>écrit par {{ article.author.username }}</p>
+        <p>{{ article.content }}</p>
+    </div>
+
+    <div>
+        {% for comment in article.comments %}
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.author.username }}</p>
+        {% endfor %}
+    </div>
+
 {% endblock %}
