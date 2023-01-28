@@ -11,6 +11,14 @@
         </div>
     </div>
 
+    {# Form to add a comment received from the controller #}
+    {{ form_start(form) }}
+        {# Error messages #}
+        {{ form_errors(form) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
     {% for comment in article.comments %}
         <div class="container-fluid">
             <div class="row justify-content-center">
