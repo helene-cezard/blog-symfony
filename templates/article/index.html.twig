@@ -2,17 +2,21 @@
 
 {% block body %}
 
-    <div class="article">
-        <h1>{{ article.title }}</h1>
-        <p>écrit par {{ article.author.username }}</p>
-        <p>{{ article.content }}</p>
+    <div class="card my-5">
+        <div class="card-body">
+            <h1 class="text-center">{{ article.title }}</h1>
+            <p>écrit par {{ article.author.username }}</p>
+            <p>{{ article.content }}</p>
+        </div>
     </div>
 
-    <div>
-        {% for comment in article.comments %}
-            <p>{{ comment.content }}</p>
-            <p>{{ comment.author.username }}</p>
-        {% endfor %}
-    </div>
+    {% for comment in article.comments %}
+        <div class="card my-4">
+            <div class="card-header">Commentaire de {{ comment.author.username }}</div>
+            <div class="card-body">
+                <p class="card-text">{{ comment.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}

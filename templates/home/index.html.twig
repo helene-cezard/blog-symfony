@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
 
     {% for article in latestArticles %}
-        <div class="articles">
-            <h1>{{ article.title }}</h1>
+        <div class="card mx-auto my-4">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h2 class="card-title text-center">{{ article.title }}</h2>
             <p> par {{ article.author.username }}</p>
+            <p class="card-text">{{ article.content }}</p>
+            <a href="{{ path ( 'article', {id:article.id} ) }}" class="btn btn-primary">Continuer à lire</a>
+        </div>
         </div>
     {% endfor %}
 
