@@ -31,7 +31,6 @@ class ArticleController extends AbstractController
 
             //TODO The author of the comment is the current user in session
             $author = $userRepository->find(1);
-            // dd($author);
 
             $comment->setAuthor($author);
             $comment->setArticle($article);
