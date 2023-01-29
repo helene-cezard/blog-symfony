@@ -55,9 +55,11 @@ class Article
      */
     private $image;
 
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->CreatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

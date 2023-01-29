@@ -17,8 +17,6 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Laissez un commentaire',
             ])
-            // ->add('article')
-            // ->add('author')
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
             ])
