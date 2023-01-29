@@ -50,10 +50,27 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/add", name="article_add")
      */
-    public function add(): Response
+    public function add(Request $request, EntityManagerInterface $manager, UserRepository $userRepository): Response
     {
         // Creating the form to create a new article
         $form = $this->createForm(ArticleType::class);
+
+        // Handling information received with the form
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+
+            //TODO The author of the comment is the current user in session
+            $author = $userRepository->find(1);
+
+            $article->setAuthor($author);
+
+            $manager->persist($article);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre article a bien été enregistré.');
+        }
 
         return $this->renderForm('article/add.html.twig', [
             'form' => $form,
