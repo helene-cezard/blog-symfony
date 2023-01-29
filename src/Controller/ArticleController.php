@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
@@ -14,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article/{id}", name="article")
+     * @Route("/article/{id}", name="article_show", requirements={"id": "\d+"})
      */
-    public function index(int $id, ArticleRepository $articleRepository, UserRepository $userRepository, Request $request, EntityManagerInterface $manager): Response
+    public function show(int $id, ArticleRepository $articleRepository, UserRepository $userRepository, Request $request, EntityManagerInterface $manager): Response
     {
         $article = $articleRepository->find($id);
 
@@ -40,9 +41,22 @@ class ArticleController extends AbstractController
         }
 
 
-        return $this->render('article/index.html.twig', [
+        return $this->render('article/show.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/article/add", name="article_add")
+     */
+    public function add(): Response
+    {
+        // Creating the form to create a new article
+        $form = $this->createForm(ArticleType::class);
+
+        return $this->renderForm('article/add.html.twig', [
+            'form' => $form,
         ]);
     }
 }
