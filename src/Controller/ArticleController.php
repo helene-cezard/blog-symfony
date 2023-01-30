@@ -27,17 +27,19 @@ class ArticleController extends AbstractController
         // Handling information received with the form
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment = $form->getData();
-
-            //TODO The author of the comment is the current user in session
-            $author = $userRepository->find(1);
-
-            $comment->setAuthor($author);
-            $comment->setArticle($article);
-
-            $manager->persist($comment);
-            $manager->flush();
+        if ($this->getUser()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment = $form->getData();
+    
+                //The author is the current user in session
+                $author = $this->getUser();
+    
+                $comment->setAuthor($author);
+                $comment->setArticle($article);
+    
+                $manager->persist($comment);
+                $manager->flush();
+            }
         }
 
 
@@ -61,8 +63,8 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
 
-            //TODO The author of the comment is the current user in session
-            $author = $userRepository->find(1);
+            //The author is the current user in session
+            $author = $this->getUser();
 
             $article->setAuthor($author);
 
