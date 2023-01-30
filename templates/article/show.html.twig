@@ -5,26 +5,30 @@
     <div class="card my-5">
         <div class="card-body">
             <h1 class="text-center">{{ article.title }}</h1>
-            <p>écrit par {{ article.author.username }}</p>
+            <p>écrit par {{ article.author.pseudonyme }}</p>
             <img style="width: 80%;" class="d-block mx-auto my-4" src="{{ article.image }}" alt="...">
             <p>{{ article.content }}</p>
         </div>
     </div>
 
-    {# Form to add a comment received from the controller #}
-    {{ form_start(form) }}
-        {# Error messages #}
-        {{ form_errors(form) }}
-        {{ form_row(form.content) }}
-        {{ form_row(form.submit) }}
-    {{ form_end(form) }}
+    {% if app.user %}
+        {# Form to add a comment received from the controller #}
+        {{ form_start(form) }}
+            {# Error messages #}
+            {{ form_errors(form) }}
+            {{ form_row(form.content) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    {% else %}
+        <p>Connectez vous pour pouvoir ajouter un commentaire.</p>
+    {% endif %}
 
     {% for comment in article.comments %}
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="card my-4">
-                        <div class="card-header">Commentaire de {{ comment.author.username }}</div>
+                        <div class="card-header">Commentaire de {{ comment.author.pseudonyme }}</div>
                         <div class="card-body">
                             <p class="card-text">{{ comment.content }}</p>
                         </div>

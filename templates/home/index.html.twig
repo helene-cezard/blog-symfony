@@ -7,7 +7,7 @@
         <img src="{{ article.image }}" class="card-img-top" alt="...">
         <div class="card-body">
             <h2 class="card-title text-center">{{ article.title }}</h2>
-            <p> par {{ article.author.username }}</p>
+            <p> par {{ article.author.pseudonyme }}</p>
             <p class="card-text">{{ article.content }}</p>
             <a href="{{ path ( 'article_show', {id:article.id} ) }}" class="btn btn-primary">Continuer à lire</a>
         </div>
