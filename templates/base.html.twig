@@ -16,16 +16,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ path ( 'home' ) }}">Home</a>
+            <a class="nav-link {{ app.request.get('_route') == 'home' ? 'active' }}" aria-current="page" href="{{ path ( 'home' ) }}">Page d'accueil</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ path ( 'app_login' ) }}">Connexion</a>
+            <a class="nav-link {{ app.request.get('_route') == 'app_login' ? 'active' }}" href="{{ path ( 'app_login' ) }}">Connexion</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ path ( 'user_add' ) }}">Inscription</a>
+            <a class="nav-link {{ app.request.get('_route') == 'app_register' ? 'active' }}" href="{{ path ( 'app_register' ) }}">Inscription</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ path ( 'article_add' ) }}">Ajoutez un article</a>
+            <a class="nav-link {{ app.request.get('_route') == 'article_add' ? 'active' }}" href="{{ path ( 'article_add' ) }}">Ajoutez un article</a>
             </li>
         </ul>
         </div>
