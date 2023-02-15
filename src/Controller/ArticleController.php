@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="article_show", requirements={"id": "\d+"})
      */
-    public function show(int $id, ArticleRepository $articleRepository, UserRepository $userRepository, Request $request, EntityManagerInterface $manager): Response
+    public function show(int $id, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $manager): Response
     {
         $article = $articleRepository->find($id);
 
@@ -52,7 +52,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/add", name="article_add")
      */
-    public function add(Request $request, EntityManagerInterface $manager, UserRepository $userRepository): Response
+    public function add(Request $request, EntityManagerInterface $manager): Response
     {
         // Creating the form to create a new article
         $form = $this->createForm(ArticleType::class);
@@ -72,10 +72,51 @@ class ArticleController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Votre article a bien été enregistré.');
+
+            return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
         }
 
-        return $this->renderForm('article/add.html.twig', [
+        return $this->renderForm('article/form.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("/article/update/{id}", name="article_update", requirements={"id": "\d+"})
+     */
+    public function update(Request $request, EntityManagerInterface $manager, Article $article)
+    {
+        $this->denyAccessUnlessGranted('EDIT', $article);
+
+        // Creating the form to update the article
+        $form = $this->createForm(ArticleType::class, $article);
+
+        // Handling information received with the form
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre article a bien été mis à jour.');
+
+            return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
+        }
+
+        return $this->renderForm('article/form.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/article/delete/{id}", name="article_delete", requirements={"id": "\d+"})
+     */
+    public function delete(EntityManagerInterface $manager, Article $article)
+    {
+        $manager->remove($article);
+        $manager->flush();
+
+        $this->addFlash('success', 'Votre article a bien été supprimé.');
+
+        return $this->redirectToRoute('home');
     }
 }
