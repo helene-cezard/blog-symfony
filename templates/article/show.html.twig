@@ -6,10 +6,10 @@
         <div class="card-body">
 
         {% if( app.user == article.author) %}
+
         <a href="{{ path( 'article_update', {id:article.id} ) }}" class="btn btn-primary">Modifier cet article</a>
-        {% endif %}
-        {% if( app.user == article.author) %}
         <a href="{{ path( 'article_delete', {id:article.id} ) }}" class="btn btn-primary">Supprimer cet article</a>
+        
         {% endif %}
 
             <h1 class="text-center">{{ article.title }}</h1>

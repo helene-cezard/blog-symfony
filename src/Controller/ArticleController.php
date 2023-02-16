@@ -112,6 +112,8 @@ class ArticleController extends AbstractController
      */
     public function delete(EntityManagerInterface $manager, Article $article)
     {
+        $this->denyAccessUnlessGranted('DELETE', $article);
+        
         $manager->remove($article);
         $manager->flush();
 

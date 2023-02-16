@@ -33,8 +33,11 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/article/add, roles: ROLE_ADMIN }
-        - { path: ^/article/update, roles: ROLE_ADMIN }
+        - { path: ^/article/\w+(add|update|delete), roles: [ROLE_AUTHOR, ROLE_ADMIN] }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_AUTHOR: ROLE_AUTHOR
 
 when@test:
     security:
