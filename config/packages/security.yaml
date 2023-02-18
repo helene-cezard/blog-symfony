@@ -35,10 +35,6 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/article/\w+(add|update|delete), roles: [ROLE_AUTHOR, ROLE_ADMIN] }
 
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_ADMIN
-        ROLE_AUTHOR: ROLE_AUTHOR
-
 when@test:
     security:
         password_hashers:
