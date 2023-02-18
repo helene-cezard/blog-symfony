@@ -16,7 +16,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 container-fluid d-flex">
                         <li class="nav-item">
                             <a class="nav-link {{ app.request.get('_route') == 'home' ? 'active"  aria-current="page"' }}" aria-current="page" href="{{ path ( 'home' ) }}">Page d'accueil</a>
                         </li>
@@ -33,7 +33,7 @@
                         </li>
                         {% endif %}
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown ms-auto">
                             <a class="nav-link btn btn-secondary  dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {% if app.user %}
                                 Connecté en tant que {{ app.user.pseudonyme }}
