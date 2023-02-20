@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("user/update/{id}", name="user_update", requirements={"id": "\d+"})
      */
-    public function update(User $user, EntityManagerInterface $manager, Request $request) {
+    public function update(User $user, EntityManagerInterface $manager, Request $request, UserPasswordHasherInterface $userPasswordHasher) {
 
         $this->denyAccessUnlessGranted('EDIT', $user);
 
@@ -66,6 +66,14 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+                
             $manager->flush();
 
             $this->addFlash('success', 'Votre profil a bien été modifié.');

@@ -34,7 +34,6 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => 'Choisissez un mote de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entre un mot de passe',

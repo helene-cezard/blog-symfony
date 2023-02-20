@@ -39,6 +39,8 @@ class ArticleController extends AbstractController
     
                 $manager->persist($comment);
                 $manager->flush();
+
+                $this->addFlash('success', 'Votre commentaire a bien été enregistré.');
             }
         }
 
