@@ -16,9 +16,6 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('content', TextareaType::class, [
-            //     'label' => 'Laissez un commentaire',
-            // ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $comment = $event->getData();
                 $form = $event->getForm();
@@ -37,10 +34,6 @@ class CommentType extends AbstractType
                     'label' => 'Envoyer',
                 ]);
             })
-            // ->add('submit', SubmitType::class, [
-            //     'label' => 'Envoyer',
-            // ])
-
         ;
     }
 
