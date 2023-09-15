@@ -39,7 +39,7 @@
                         <div class="card-header d-flex justify-content-between">
                         <p>Commentaire de {{ comment.author.pseudonyme }}</p>
 
-                        {% if(app.user == comment.author) %}
+                        {% if(app.user == comment.author) or is_granted('ROLE_ADMIN') %}
 
                         <div>
                             <a href="{{ path( 'comment_update', {id:comment.id} ) }}" class="btn btn-success">Modifier</a>
